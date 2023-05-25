@@ -1,32 +1,43 @@
 import './App.css';
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
-import React, {Component} from "react";
+import React, { useState } from "react";
 import Header from './components/layout/Header'
 import Footer from "./components/layout/Footer";
 import Catalogue from "./components/pages/Catalogue";
 import Volume from "./components/pages/Volume";
 import Search from "./components/pages/Search";
+import UserContext from "./contexts/UserContext";
+import Profile from "./components/pages/Profile";
+import UserShelve from "./components/pages/UserShelve";
+import BooksApiService from "./services/BooksApiService";
 
-class App extends Component {
-    static url = process.env.API_URL;
-    static apiKey = process.env.API_KEY;
-    render() {
-        return (
-            <BrowserRouter>
-                <div className="App">
-                    <div className="container">
-                        <Header baseUrl={App.url} apiKey={App.apiKey}/>
-                        <Routes>
-                            <Route exact path="/" element={<Catalogue baseUrl={App.url} apiKey={App.apiKey}/>}/>
-                            <Route exact path="/volume" element={<Volume baseUrl={App.url} apiKey={App.apiKey}/>}/>
-                            <Route exact path="/search" element={<Search baseUrl={App.url} apiKey={App.apiKey}/>}/>
-                        </Routes>
-                        <Footer />
+const App = () => {
+    const url = "https://www.googleapis.com/books/v1";
+    const apiKey = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+
+    const [user, setUser] = useState(null);
+
+    return (
+        <UserContext.Provider value={{user: user, setUser: setUser}}>
+            <BooksApiService baseUrl={url} apiKey={apiKey}>
+                <BrowserRouter>
+                    <div className="App">
+                        <div className="container">
+                            <Header/>
+                            <Routes>
+                                <Route exact path="/" element={<Catalogue/>}/>
+                                <Route exact path="/volume" element={<Volume/>}/>
+                                <Route exact path="/search" element={<Search/>}/>
+                                <Route exact path="/profile" element={<Profile/>}/>
+                                <Route exact path="/user-shelve/:shelveId" element={<UserShelve/>}/>
+                            </Routes>
+                            <Footer />
+                        </div>
                     </div>
-                </div>
-            </BrowserRouter>
-        );
-    }
+                </BrowserRouter>
+            </BooksApiService>
+        </UserContext.Provider>
+    );
 }
 
 export default App;

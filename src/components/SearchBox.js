@@ -1,54 +1,48 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {Link, useNavigate} from 'react-router-dom'
 import Thumbnail from './Thumbnail';
+import {useBooksApiService} from "../contexts/BooksApiServiceContext";
 
-function SearchBox(props) {
+const SearchBox = () => {
     const [search, setSearch] = useState('');
     const [results, setResults] = useState([]);
-    const url = props.baseUrl + '/volumes?key=' + props.apiKey;
     const navigate = useNavigate();
+    const booksApiService = useBooksApiService();
 
     useEffect(() => {
         if (search.length >= 3) {
             const timeout = setTimeout(() => {
-                fetch(url + '&q=' + search + "&maxResults=3", {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    }
-                }).then(response => response.json())
-                    .then(results => setResults(() => results.items));
+                booksApiService.getVolumes('/volumes', search, 3).then(results => setResults(results.items));
             }, 1000);
             return () => { clearTimeout(timeout) };
         } else {
-            setResults(() => []);
+            setResults([]);
         }
-    }, [url, search]);
+    }, [search, booksApiService]);
 
-    const onSubmit = function (e) {
+    const onSubmit = useCallback((e) => {
         e.preventDefault();
-    };
+    }, []);
 
-    const onChange = function (e) {
-        setSearch(() => e.target.value);
-    };
+    const onChange = useCallback((e) => {
+        setSearch(e.target.value);
+    }, []);
 
-    const onFocusOut = function () {
-        setResults(() => []);
-        setSearch(() => "");
-    };
+    const onFocusOut = useCallback(() => {
+        setResults([]);
+        setSearch("");
+    }, []);
 
-    const onMouseDown = function (e) {
+    const onMouseDown = useCallback((e) => {
         navigate(e.target.getAttribute("href"));
-    }
+    }, [navigate]);
 
     return (
         <div className="search-container">
             <form onSubmit={onSubmit}>
                 <input className="search" type="text" onChange={onChange} onBlur={onFocusOut} value={search} placeholder="Search..."/>
             </form>
-            {results && results.length > 0 &&
+            {results?.length > 0 &&
                 <div className="search-results">
                     {results.map(result =>
                         <div key={result.id} className="search-result">

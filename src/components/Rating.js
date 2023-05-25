@@ -1,13 +1,15 @@
 import React from 'react';
 
-export default function Rating({volumeInfo}) {
+const Rating = ({volumeInfo}) => {
     return (
-        <React.Fragment>
+        <>
             {volumeInfo.averageRating &&
-                <React.Fragment>
+                <>
                     Rating: {volumeInfo.averageRating} ({volumeInfo.ratingsCount})
-                </React.Fragment>
+                </>
             }
-        </React.Fragment>
+        </>
     );
 }
+
+export default Rating;

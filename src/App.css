@@ -22,6 +22,7 @@
 
 .page-header {
     text-align: center;
+    clear: both;
 }
 
 .volumes-row {
@@ -121,4 +122,62 @@
     position: absolute;
     bottom: 0;
     margin: 3px 10px;
+}
+
+.navigation {
+    display: inline-block;
+}
+
+.navigation > div{
+    float: left;
+}
+
+.navigation-link {
+    padding: 10px 10px 0 0;
+}
+
+.gauth-container input {
+    padding: 10px;
+    width: 100px;
+}
+
+.header-profile-thumbnail {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-left: 18px;
+    padding-top: 2px;
+    height: 0;
+}
+
+.user-profile-info {
+    text-align: center;
+}
+
+.shelves-table {
+    text-align: center;
+    width: 100%;
+}
+
+.add-to-shelve-popup {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    top: 100px;
+    background: #d2e3fc;
+    padding: 10px 50px;
+}
+
+.add-to-shelve-popup-title {
+    float: left;
+    margin-right: 10px;
+}
+
+.add-to-shelve-popup-background {
+    width: 100%;
+    background:rgba(0, 0, 0, 0.3);
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Footer() {
+const Footer = () => {
     return (
         <footer style={FooterStyle}>
             <h1>Copyrights (c)</h1>

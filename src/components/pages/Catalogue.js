@@ -1,11 +1,11 @@
 import React from 'react';
 import VolumeList from '../VolumeList';
 
-function Catalogue(props) {
+const Catalogue = () => {
     return (
         <div>
             <h1 className="page-header">Volumes</h1>
-            <VolumeList url={props.baseUrl + '/volumes'} apiKey={props.apiKey}/>
+            <VolumeList queryPath={'/volumes'} />
         </div>
     );
 }

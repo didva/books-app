@@ -3,39 +3,36 @@ import {useSearchParams} from 'react-router-dom';
 import Loader from '../Loader';
 import Thumbnail from '../Thumbnail';
 import Rating from "../Rating";
+import {useBooksApiService} from "../../contexts/BooksApiServiceContext";
+import AddToShelve from "../AddToShelve";
 
-function Volume(props) {
+const Volume = () => {
     const [searchParams] = useSearchParams();
-    const url = props.baseUrl + '/volumes/' + searchParams.get("id") + '?key=' + props.apiKey;
-    const [volume, setVolume] = useState();
+    const booksApiService = useBooksApiService();
+    const [volume, setVolume] = useState({});
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        setLoading(() => true);
-        fetch(url, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then(response => response.json())
-            .then(volume => {
-                setLoading(() => false);
-                setVolume(() => volume)
-            });
-    }, [url]);
+        setLoading(true);
+        booksApiService.getVolume(searchParams.get("id")).then(volume => {
+            setLoading(false);
+            setVolume(volume)
+        });
+    }, [searchParams, booksApiService]);
 
     return (
         <div className="volume-container">
             <Loader loading={loading}/>
-            {!loading && volume &&
+            {!loading && volume?.volumeInfo &&
                 <div>
                     <h1 className="volume-header">{volume.volumeInfo.title}</h1>
                     <div className="volume-img-box">
                         <Thumbnail volumeInfo={volume.volumeInfo}/>
                         <Rating volumeInfo={volume.volumeInfo}/>
+                        <AddToShelve volumeId={volume.id}/>
                     </div>
-                    <div className="volume-description" dangerouslySetInnerHTML={{__html: volume.volumeInfo.description}}/>
+                    <div className="volume-description"
+                         dangerouslySetInnerHTML={{__html: volume.volumeInfo.description}}/>
                 </div>
             }
         </div>

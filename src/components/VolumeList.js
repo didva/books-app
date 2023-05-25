@@ -3,35 +3,29 @@ import {Link} from 'react-router-dom'
 import Loader from './Loader';
 import Thumbnail from './Thumbnail';
 import Rating from "./Rating";
+import {useBooksApiService} from "../contexts/BooksApiServiceContext";
+import RemoveFromShelve from "./RemoveFromShelve";
 
-function VolumeList(props) {
+const VolumeList = ({queryPath, query, shelveId}) => {
     const [volumes, setVolumes] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [removedTrigger, setRemovedTrigger] = useState(false);
+    const booksApiService = useBooksApiService();
 
     useEffect(() => {
-        console.log("VolumeList!")
-        console.log("AAAA:" + props.url + props.query + props.apiKey);
-        setVolumes(() => []);
-        setLoading(() => true);
-        const url = props.url + '?key=' + props.apiKey + '&q=' + (props.query ? props.query : '""');
-        fetch(url, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then(response => response.json())
-            .then(volumes => {
-                setLoading(() => false);
-                setVolumes(() => volumes.items);
-            });
-    }, [props.url, props.query, props.apiKey]);
+        setVolumes([]);
+        setLoading(true);
+        booksApiService.getVolumes(queryPath, query).then(volumes => {
+            setLoading(false);
+            setVolumes(volumes.items);
+        });
+    }, [query, booksApiService, removedTrigger, queryPath]);
 
     return (
-        <React.Fragment>
+        <>
             <Loader loading={loading}/>
             <div>
-                {!loading && volumes && volumes.map(volume =>
+                {!loading && volumes?.length > 0 && volumes.map(volume =>
                     <div key={volume.id} className="volumes-row">
                         <div className="volumes-img-box">
                             <Thumbnail volumeInfo={volume.volumeInfo}/>
@@ -39,14 +33,20 @@ function VolumeList(props) {
                                 <Link to={"/volume?id=" + volume.id}>{volume.volumeInfo.title}</Link>
                             </div>
                             <Rating volumeInfo={volume.volumeInfo}/>
+                            {shelveId &&
+                                <RemoveFromShelve volumeId={volume.id} shelveId={shelveId} callback={() => setRemovedTrigger((prev) => !prev)}/>
+                            }
                         </div>
                         <div className="volumes-description">
                             {volume.volumeInfo.description}
                         </div>
                     </div>
                 )}
+                {!loading && !volumes &&
+                    <h2>No volumes found</h2>
+                }
             </div>
-        </React.Fragment>
+        </>
     );
 }
 

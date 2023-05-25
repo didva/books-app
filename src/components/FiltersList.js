@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import Filter from "./Filter";
 
-function FiltersList({filters, setFilters, onSubmit}) {
+const FiltersList = ({filters, setFilters, onSubmit}) => {
 
-    const onChange = (id, value) => {
+    const onChange = useCallback((id, value) => {
         setFilters((prev) => {
            return {
                ...prev,
@@ -13,7 +13,7 @@ function FiltersList({filters, setFilters, onSubmit}) {
                }
            };
         });
-    }
+    }, []);
 
     return (
         <div className="search-filters-container">

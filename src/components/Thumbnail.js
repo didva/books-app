@@ -1,12 +1,12 @@
 import React from 'react';
 
-function Thumbnail(props) {
+const Thumbnail = ({volumeInfo}) => {
     return (
-        <React.Fragment>
-            {props.volumeInfo.imageLinks && props.volumeInfo.imageLinks.thumbnail &&
-                <img src={props.volumeInfo.imageLinks.thumbnail} alt={props.volumeInfo.title}/>
+        <>
+            {volumeInfo?.imageLinks?.thumbnail &&
+                <img src={volumeInfo.imageLinks.thumbnail} alt={volumeInfo.title}/>
             }
-        </React.Fragment>
+        </>
     );
 }
 
