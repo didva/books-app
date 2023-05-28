@@ -2,6 +2,7 @@ import React, {useCallback, useContext, useEffect} from 'react';
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import UserContext from "../contexts/UserContext";
 import GAuthApiService from "../services/GAuthApiSevice";
+import Button from "react-bootstrap/Button";
 
 const GAuth = () => {
     const gauthApiService = GAuthApiService();
@@ -48,9 +49,9 @@ const GAuth = () => {
     return (
         <div>
             {user ? (
-                <input value="Logout..." type="button" onClick={logout}/>
+                <Button variant="danger" onClick={logout} size="sm">Logout...</Button>
             ) : (
-                <input value="Login" type="button" onClick={login}/>
+                <Button variant="success" onClick={login} size="sm">Login</Button>
             )}
         </div>
     );

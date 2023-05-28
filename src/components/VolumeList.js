@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom'
 import Loader from './Loader';
-import Thumbnail from './Thumbnail';
 import Rating from "./Rating";
 import {useBooksApiService} from "../contexts/BooksApiServiceContext";
 import RemoveFromShelve from "./RemoveFromShelve";
+import {Card, Col, Row} from "react-bootstrap";
 
 const VolumeList = ({queryPath, query, shelveId}) => {
     const [volumes, setVolumes] = useState([]);
@@ -24,27 +24,31 @@ const VolumeList = ({queryPath, query, shelveId}) => {
     return (
         <>
             <Loader loading={loading}/>
-            <div>
-                {!loading && volumes?.length > 0 ? volumes.map(volume =>
-                    <div key={volume.id} className="volumes-row">
-                        <div className="volumes-img-box">
-                            <Thumbnail volumeInfo={volume.volumeInfo}/>
-                            <div>
-                                <Link to={"/volume?id=" + volume.id}>{volume.volumeInfo.title}</Link>
-                            </div>
-                            <Rating volumeInfo={volume.volumeInfo}/>
-                            {shelveId &&
-                                <RemoveFromShelve volumeId={volume.id} shelveId={shelveId} callback={() => setRemovedTrigger((prev) => !prev)}/>
-                            }
-                        </div>
-                        <div className="volumes-description">
-                            {volume.volumeInfo.description}
-                        </div>
-                    </div>
-                ) : (
-                    <h2>No volumes found</h2>
-                )}
-            </div>
+            {!loading && volumes?.length > 0 ? volumes.map(volume =>
+                <Row className="m-md-2" key={volume.id}>
+                    <Col md="2">
+                        <Card style={{ width: '15rem' }}>
+                            <Card.Img variant="top" src={volume.volumeInfo?.imageLinks?.thumbnail} />
+                            <Card.Body>
+                                <Link to={"/volume?id=" + volume.id}>
+                                    <Card.Title>{volume.volumeInfo.title}</Card.Title>
+                                </Link>
+                                <Card.Text>
+                                    <Rating volumeInfo={volume.volumeInfo}/>
+                                </Card.Text>
+                                {shelveId &&
+                                    <RemoveFromShelve volumeId={volume.id} shelveId={shelveId} callback={() => setRemovedTrigger((prev) => !prev)}/>
+                                }
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                    <Col md="8">
+                        {volume.volumeInfo.description}
+                    </Col>
+                </Row>
+            ) : !loading && (
+                <h2>No volumes found</h2>
+            )}
         </>
     );
 }

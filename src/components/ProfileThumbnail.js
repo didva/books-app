@@ -1,15 +1,24 @@
-import React, { useContext } from 'react';
+import React, {useContext} from 'react';
 import UserContext from "../contexts/UserContext";
+import {Card} from "react-bootstrap";
 
-const ProfileThumbnail = () => {
+const ProfileThumbnail = ({showInfo, size}) => {
 
-    const { user } = useContext(UserContext);
+    const {user} = useContext(UserContext);
 
-    return <div>
+    return <>
         {user &&
-            <img src={user.picture} alt="User" referrerPolicy="no-referrer"/>
+            <Card className="text-center">
+                <Card.Img style={{width: size, margin: '0 auto'}} variant="top" src={user.picture} referrerPolicy="no-referrer"/>
+                {showInfo === true &&
+                    <Card.Body>
+                        <Card.Title>{user.name}</Card.Title>
+                        <Card.Title>{user.email}</Card.Title>
+                    </Card.Body>
+                }
+            </Card>
         }
-    </div>
+    </>
 };
 
 export default ProfileThumbnail;

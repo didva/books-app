@@ -1,55 +1,6 @@
-* {
-    margin: 0;
-    padding: 0;
-}
-
-.container {
-    padding: 0 1rem;
-}
-
-.btn {
-    display: inline-block;
-    border: none;
-    background: #555;
-    color: #fff;
-    padding: 7px 20px;
-    cursor: pointer;
-}
-
-.btn:hover {
-    background: #666;
-}
-
 .page-header {
     text-align: center;
     clear: both;
-}
-
-.volumes-row {
-    clear: both;
-    padding: 20px;
-    background-color: ghostwhite;
-    min-height: 250px;
-    border-bottom: 1px solid red;
-    /*display: inline-block;*/
-}
-
-.volumes-img-box {
-    float: left;
-    width: 200px;
-}
-
-.volumes-description {
-    max-height: 200px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 10;
-    -webkit-box-orient: vertical;
-}
-
-.search {
-    height: 40px;
 }
 
 .search-container {
@@ -65,30 +16,6 @@
     width: 300px;
     margin-left: -148px;
     margin-top: 1px;
-}
-
-.search-result {
-    clear: both;
-    text-align: left;
-    height: 80px;
-    overflow: hidden;
-    padding-top: 10px;
-}
-
-.search-result-title {
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-}
-
-.search-result-img {
-    float: left;
-}
-
-.volume-header {
-    text-align: center;
 }
 
 .volume-img-box {
@@ -108,22 +35,6 @@
     text-align: center;
 }
 
-.filter-container {
-    float: left;
-    margin: 10px;
-}
-
-.filters {
-    height: 50px;
-    position: relative;
-}
-
-.search-submit {
-    position: absolute;
-    bottom: 0;
-    margin: 3px 10px;
-}
-
 .navigation {
     display: inline-block;
 }
@@ -136,11 +47,6 @@
     padding: 10px 10px 0 0;
 }
 
-.gauth-container input {
-    padding: 10px;
-    width: 100px;
-}
-
 .header-profile-thumbnail {
     position: absolute;
     top: 0;
@@ -148,36 +54,4 @@
     padding-left: 18px;
     padding-top: 2px;
     height: 0;
-}
-
-.user-profile-info {
-    text-align: center;
-}
-
-.shelves-table {
-    text-align: center;
-    width: 100%;
-}
-
-.add-to-shelve-popup {
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, 0);
-    top: 100px;
-    background: #d2e3fc;
-    padding: 10px 50px;
-}
-
-.add-to-shelve-popup-title {
-    float: left;
-    margin-right: 10px;
-}
-
-.add-to-shelve-popup-background {
-    width: 100%;
-    background:rgba(0, 0, 0, 0.3);
-    position: absolute;
-    height: 100%;
-    top: 0;
-    left: 0;
 }

@@ -1,7 +1,8 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom'
-import Thumbnail from './Thumbnail';
 import {useBooksApiService} from "../contexts/BooksApiServiceContext";
+import Form from "react-bootstrap/Form";
+import {Card, Row} from "react-bootstrap";
 
 const SearchBox = () => {
     const [search, setSearch] = useState('');
@@ -33,24 +34,30 @@ const SearchBox = () => {
         setSearch("");
     }, []);
 
-    const onMouseDown = useCallback((e) => {
-        navigate(e.target.getAttribute("href"));
+    const onMouseDown = useCallback((id) => {
+        navigate("/volume?id=" + id);
     }, [navigate]);
 
     return (
         <div className="search-container">
-            <form onSubmit={onSubmit}>
-                <input className="search" type="text" onChange={onChange} onBlur={onFocusOut} value={search} placeholder="Search..."/>
-            </form>
+            <Form onSubmit={onSubmit}>
+                <Form.Control type="text" placeholder="Search..." value={search} onChange={onChange} onBlur={onFocusOut}/>
+            </Form>
             {results?.length > 0 &&
                 <div className="search-results">
                     {results.map(result =>
-                        <div key={result.id} className="search-result">
-                            <Link onMouseDown={onMouseDown} className="search-result-img" to={"/volume?id=" + result.id}>
-                                <Thumbnail volumeInfo={result.volumeInfo}/>
-                            </Link>
-                            <div className="search-result-title"><Link onMouseDown={onMouseDown} to={"/volume?id=" + result.id}>{result.volumeInfo.title}</Link></div>
-                        </div>
+                        <Row className="m-md-2" key={result.id}>
+                            <Card style={{ width: '15rem' }}>
+                                <Link onMouseDown={() => onMouseDown(result.id)} to={"/volume?id=" + result.id}>
+                                    <Card.Img variant="top" src={result.volumeInfo?.imageLinks?.thumbnail} />
+                                </Link>
+                                <Card.Body>
+                                    <Link onMouseDown={() => onMouseDown(result.id)} to={"/volume?id=" + result.id}>
+                                        <Card.Title>{result.volumeInfo.title}</Card.Title>
+                                    </Link>
+                                </Card.Body>
+                            </Card>
+                        </Row>
                     )}
                 </div>
             }

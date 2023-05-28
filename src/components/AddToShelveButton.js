@@ -1,5 +1,7 @@
 import React, {useCallback, useState} from 'react';
 import {useBooksApiService} from "../contexts/BooksApiServiceContext";
+import Button from "react-bootstrap/Button";
+import {Alert, Col, Row} from "react-bootstrap";
 
 
 const AddToShelveButton = ({shelve, volumeId}) => {
@@ -15,13 +17,17 @@ const AddToShelveButton = ({shelve, volumeId}) => {
     }, [booksApiService]);
 
     return (
-        <div>
-            <div className="add-to-shelve-popup-title">{shelve.title}</div>
-            <input value="add" type="button" onClick={() => addToShelve(shelve.id, volumeId)}/>
-            {added &&
-                <div>Volume is added to {shelve.title}</div>
-            }
-        </div>
+        <Row className="m-md-2">
+            <Col md="11">
+                {shelve.title}
+                {added &&
+                    <Alert variant="success">Volume is added to {shelve.title}</Alert>
+                }
+            </Col>
+            <Col md="1">
+                <Button variant="primary" onClick={() => addToShelve(shelve.id, volumeId)} size="sm">Add</Button>
+            </Col>
+        </Row>
     );
 }
 

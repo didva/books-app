@@ -25,7 +25,7 @@ const Volume = () => {
             <Loader loading={loading}/>
             {!loading && volume?.volumeInfo &&
                 <div>
-                    <h1 className="volume-header">{volume.volumeInfo.title}</h1>
+                    <h1 className="page-header">{volume.volumeInfo.title}</h1>
                     <div className="volume-img-box">
                         <Thumbnail volumeInfo={volume.volumeInfo}/>
                         <Rating volumeInfo={volume.volumeInfo}/>

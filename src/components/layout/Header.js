@@ -12,7 +12,7 @@ const Header = () => {
             <div>
                 <h1>Books app</h1>
                 <div className="header-profile-thumbnail">
-                    <ProfileThumbnail/>
+                    <ProfileThumbnail showInfo={false} size="7rem"/>
                 </div>
                 <div className="navigation">
                     <div className="navigation-link"><Link style={linkStyle} to="/">Catalogue</Link> |</div>
