@@ -25,7 +25,7 @@ const Profile = () => {
 
     return (
         <div className="profile-container">
-            {user &&
+            {user ? (
                 <>
                     <div className="user-profile-info">
                         <ProfileThumbnail/>
@@ -58,10 +58,9 @@ const Profile = () => {
                         </div>
                     </div>
                 </>
-            }
-            {!user &&
+            ) : (
                 <h1>Please login...</h1>
-            }
+            )}
         </div>
     );
 }

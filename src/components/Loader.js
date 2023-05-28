@@ -2,10 +2,6 @@ import React from 'react';
 import loader from '../static/loader.gif';
 
 const Loader = ({loading}) => {
-    // const [loading, setLoading] = useState(props.loading);
-    // useEffect(() => {
-    //     setLoading(props.loading);
-    // }, [props.loading]);
     return (
         <div className="loader-container">
             {loading &&

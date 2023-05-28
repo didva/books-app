@@ -25,7 +25,7 @@ const VolumeList = ({queryPath, query, shelveId}) => {
         <>
             <Loader loading={loading}/>
             <div>
-                {!loading && volumes?.length > 0 && volumes.map(volume =>
+                {!loading && volumes?.length > 0 ? volumes.map(volume =>
                     <div key={volume.id} className="volumes-row">
                         <div className="volumes-img-box">
                             <Thumbnail volumeInfo={volume.volumeInfo}/>
@@ -41,10 +41,9 @@ const VolumeList = ({queryPath, query, shelveId}) => {
                             {volume.volumeInfo.description}
                         </div>
                     </div>
-                )}
-                {!loading && !volumes &&
+                ) : (
                     <h2>No volumes found</h2>
-                }
+                )}
             </div>
         </>
     );

@@ -1,21 +1,15 @@
 import React, {useCallback, useContext, useEffect} from 'react';
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import UserContext from "../contexts/UserContext";
+import GAuthApiService from "../services/GAuthApiSevice";
 
 const GAuth = () => {
+    const gauthApiService = GAuthApiService();
     const {user, setUser} = useContext(UserContext);
     const onSuccess = useCallback((response) => {
         const token = response.access_token;
         const expiresIn = response.expires_in;
-        fetch(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${token}`, {
-            method: "GET",
-            headers: {
-                Authorization: `Bearer ${token}`,
-                Accept: 'application/json'
-            }
-        }).then(
-            response => response.json()
-        ).then(user => {
+        gauthApiService.getUser(token).then((user) => {
             setUser({
                 token: token,
                 name: user.name,
@@ -24,7 +18,7 @@ const GAuth = () => {
                 expiresIn: expiresIn
             });
         });
-    }, [setUser]);
+    }, [setUser, gauthApiService]);
     const googleLogin = useGoogleLogin({
         scope: "https://www.googleapis.com/auth/books",
         onSuccess,
@@ -53,12 +47,11 @@ const GAuth = () => {
 
     return (
         <div>
-            {!user &&
-                <input value="Login" type="button" onClick={login}/>
-            }
-            {user &&
+            {user ? (
                 <input value="Logout..." type="button" onClick={logout}/>
-            }
+            ) : (
+                <input value="Login" type="button" onClick={login}/>
+            )}
         </div>
     );
 }
