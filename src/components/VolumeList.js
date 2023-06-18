@@ -1,10 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {Link} from 'react-router-dom'
 import Loader from './Loader';
-import Rating from "./Rating";
 import {useBooksApiService} from "../contexts/BooksApiServiceContext";
-import RemoveFromShelve from "./RemoveFromShelve";
-import {Card, Col, Row} from "react-bootstrap";
+import {Col, Row} from "react-bootstrap";
+import Thumbnail from "./Thumbnail";
 
 const VolumeList = ({queryPath, query, shelveId}) => {
     const [volumes, setVolumes] = useState([]);
@@ -19,7 +17,7 @@ const VolumeList = ({queryPath, query, shelveId}) => {
             setLoading(false);
             setVolumes(volumes.items);
         });
-    }, [query, booksApiService, removedTrigger, queryPath]);
+    }, [query, booksApiService, queryPath, removedTrigger]);
 
     return (
         <>
@@ -27,20 +25,7 @@ const VolumeList = ({queryPath, query, shelveId}) => {
             {!loading && volumes?.length > 0 ? volumes.map(volume =>
                 <Row className="m-md-2" key={volume.id}>
                     <Col md="2">
-                        <Card style={{ width: '15rem' }}>
-                            <Card.Img variant="top" src={volume.volumeInfo?.imageLinks?.thumbnail} />
-                            <Card.Body>
-                                <Link to={"/volume?id=" + volume.id}>
-                                    <Card.Title>{volume.volumeInfo.title}</Card.Title>
-                                </Link>
-                                <Card.Text>
-                                    <Rating volumeInfo={volume.volumeInfo}/>
-                                </Card.Text>
-                                {shelveId &&
-                                    <RemoveFromShelve volumeId={volume.id} shelveId={shelveId} callback={() => setRemovedTrigger((prev) => !prev)}/>
-                                }
-                            </Card.Body>
-                        </Card>
+                        <Thumbnail volume={volume} shelveId={shelveId} removeFromShellTrigger={() => setRemovedTrigger((prev) => !prev)}/>
                     </Col>
                     <Col md="8">
                         {volume.volumeInfo.description}

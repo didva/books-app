@@ -1,13 +1,12 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Link, useNavigate} from 'react-router-dom'
 import {useBooksApiService} from "../contexts/BooksApiServiceContext";
 import Form from "react-bootstrap/Form";
-import {Card, Row} from "react-bootstrap";
+import {Row} from "react-bootstrap";
+import Thumbnail from "./Thumbnail";
 
 const SearchBox = () => {
     const [search, setSearch] = useState('');
     const [results, setResults] = useState([]);
-    const navigate = useNavigate();
     const booksApiService = useBooksApiService();
 
     useEffect(() => {
@@ -34,10 +33,6 @@ const SearchBox = () => {
         setSearch("");
     }, []);
 
-    const onMouseDown = useCallback((id) => {
-        navigate("/volume?id=" + id);
-    }, [navigate]);
-
     return (
         <div className="search-container">
             <Form onSubmit={onSubmit}>
@@ -45,18 +40,9 @@ const SearchBox = () => {
             </Form>
             {results?.length > 0 &&
                 <div className="search-results">
-                    {results.map(result =>
-                        <Row className="m-md-2" key={result.id}>
-                            <Card style={{ width: '15rem' }}>
-                                <Link onMouseDown={() => onMouseDown(result.id)} to={"/volume?id=" + result.id}>
-                                    <Card.Img variant="top" src={result.volumeInfo?.imageLinks?.thumbnail} />
-                                </Link>
-                                <Card.Body>
-                                    <Link onMouseDown={() => onMouseDown(result.id)} to={"/volume?id=" + result.id}>
-                                        <Card.Title>{result.volumeInfo.title}</Card.Title>
-                                    </Link>
-                                </Card.Body>
-                            </Card>
+                    {results.map(volume =>
+                        <Row className="m-md-2" key={volume.id}>
+                            <Thumbnail volume={volume}/>
                         </Row>
                     )}
                 </div>

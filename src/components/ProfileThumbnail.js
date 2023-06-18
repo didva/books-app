@@ -10,7 +10,7 @@ const ProfileThumbnail = ({showInfo, size}) => {
         {user &&
             <Card className="text-center">
                 <Card.Img style={{width: size, margin: '0 auto'}} variant="top" src={user.picture} referrerPolicy="no-referrer"/>
-                {showInfo === true &&
+                {showInfo &&
                     <Card.Body>
                         <Card.Title>{user.name}</Card.Title>
                         <Card.Title>{user.email}</Card.Title>

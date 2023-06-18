@@ -1,7 +1,6 @@
 import React, {useCallback, useState} from 'react';
 import {useBooksApiService} from "../contexts/BooksApiServiceContext";
-import Button from "react-bootstrap/Button";
-import {Alert, Col, Row} from "react-bootstrap";
+import {Alert, Col, Row, Button} from "react-bootstrap";
 
 
 const AddToShelveButton = ({shelve, volumeId}) => {
