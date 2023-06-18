@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from "react";
 import ProfileThumbnail from "../ProfileThumbnail";
 import UserContext from "../../contexts/UserContext";
 import Loader from "../Loader";
@@ -60,6 +60,6 @@ const Profile = () => {
             )}
         </div>
     );
-}
+};
 
 export default Profile;

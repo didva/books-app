@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback} from "react";
 import Filter from "./Filter";
 import Form from "react-bootstrap/Form";
 import {Col, Row} from "react-bootstrap";
@@ -32,6 +32,6 @@ const FiltersList = ({filters, setFilters, onSubmit}) => {
             </Row>
         </Form>
     );
-}
+};
 
 export default FiltersList;

@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback} from "react";
 import {Card} from "react-bootstrap";
 import {Link, useNavigate} from "react-router-dom";
 import Rating from "./Rating";
@@ -6,14 +6,14 @@ import RemoveFromShelve from "./RemoveFromShelve";
 import AddToShelve from "./AddToShelve";
 
 const Thumbnail = ({volume, shelveId, removeFromShellTrigger}) => {
-    const url = "/volume?id=" + volume.id
+    const url = "/volume?id=" + volume.id;
     const navigate = useNavigate();
     const onMouseDown = useCallback(() => {
         navigate(url);
     }, [navigate, url]);
 
     return (
-        <Card style={{ width: '15rem' }}>
+        <Card style={{ width: "15rem" }}>
             <Link onMouseDown={onMouseDown} to={url}>
                 <Card.Img variant="top" src={volume.volumeInfo?.imageLinks?.thumbnail} />
             </Link>
@@ -31,6 +31,6 @@ const Thumbnail = ({volume, shelveId, removeFromShellTrigger}) => {
             </Card.Body>
         </Card>
     );
-}
+};
 
 export default Thumbnail;

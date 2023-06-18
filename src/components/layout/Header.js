@@ -1,5 +1,5 @@
-import React, {useContext} from 'react';
-import {Link} from 'react-router-dom'
+import React, {useContext} from "react";
+import {Link} from "react-router-dom";
 import SearchBox from "../SearchBox";
 import GAuth from "../GAuth";
 import ProfileThumbnail from "../ProfileThumbnail";
@@ -26,18 +26,18 @@ const Header = () => {
             <SearchBox/>
         </header>
     );
-}
+};
 
 const linkStyle = {
-    color: '#fff',
-    textDecoration: 'none'
-}
+    color: "#fff",
+    textDecoration: "none"
+};
 
 const HeaderStyle = {
-    background: '#333',
-    color: '#fff',
-    textAlign: 'center',
-    padding: '10px'
-}
+    background: "#333",
+    color: "#fff",
+    textAlign: "center",
+    padding: "10px"
+};
 
 export default Header;

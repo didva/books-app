@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext} from "react";
 import UserContext from "../contexts/UserContext";
 import {Card} from "react-bootstrap";
 
@@ -9,7 +9,7 @@ const ProfileThumbnail = ({showInfo, size}) => {
     return <>
         {user &&
             <Card className="text-center">
-                <Card.Img style={{width: size, margin: '0 auto'}} variant="top" src={user.picture} referrerPolicy="no-referrer"/>
+                <Card.Img style={{width: size, margin: "0 auto"}} variant="top" src={user.picture} referrerPolicy="no-referrer"/>
                 {showInfo &&
                     <Card.Body>
                         <Card.Title>{user.name}</Card.Title>
@@ -18,7 +18,7 @@ const ProfileThumbnail = ({showInfo, size}) => {
                 }
             </Card>
         }
-    </>
+    </>;
 };
 
 export default ProfileThumbnail;

@@ -1,20 +1,20 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from "react";
 import {useBooksApiService} from "../contexts/BooksApiServiceContext";
 import Form from "react-bootstrap/Form";
 import {Row} from "react-bootstrap";
 import Thumbnail from "./Thumbnail";
 
 const SearchBox = () => {
-    const [search, setSearch] = useState('');
+    const [search, setSearch] = useState("");
     const [results, setResults] = useState([]);
     const booksApiService = useBooksApiService();
 
     useEffect(() => {
         if (search.length >= 3) {
             const timeout = setTimeout(() => {
-                booksApiService.getVolumes('/volumes', search, 3).then(results => setResults(results.items));
+                booksApiService.getVolumes("/volumes", search, 3).then(results => setResults(results.items));
             }, 1000);
-            return () => { clearTimeout(timeout) };
+            return () => { clearTimeout(timeout); };
         } else {
             setResults([]);
         }
@@ -49,6 +49,6 @@ const SearchBox = () => {
             }
         </div>
     );
-}
+};
 
 export default SearchBox;

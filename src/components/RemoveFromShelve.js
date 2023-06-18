@@ -1,4 +1,4 @@
-import React, {useCallback, useContext} from 'react';
+import React, {useCallback, useContext} from "react";
 import UserContext from "../contexts/UserContext";
 import {useBooksApiService} from "../contexts/BooksApiServiceContext";
 import Button from "react-bootstrap/Button";
@@ -22,6 +22,6 @@ const RemoveFromShelve = ({shelveId, volumeId, callback}) => {
             }
         </>
     );
-}
+};
 
 export default RemoveFromShelve;

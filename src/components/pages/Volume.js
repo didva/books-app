@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from 'react';
-import {useSearchParams} from 'react-router-dom';
-import Loader from '../Loader';
-import Thumbnail from '../Thumbnail';
+import React, {useState, useEffect} from "react";
+import {useSearchParams} from "react-router-dom";
+import Loader from "../Loader";
+import Thumbnail from "../Thumbnail";
 import {useBooksApiService} from "../../contexts/BooksApiServiceContext";
 
 const Volume = () => {
@@ -14,7 +14,7 @@ const Volume = () => {
         setLoading(true);
         booksApiService.getVolume(searchParams.get("id")).then(volume => {
             setLoading(false);
-            setVolume(volume)
+            setVolume(volume);
         });
     }, [searchParams, booksApiService]);
 
@@ -33,6 +33,6 @@ const Volume = () => {
             }
         </div>
     );
-}
+};
 
 export default Volume;

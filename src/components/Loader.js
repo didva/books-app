@@ -1,5 +1,5 @@
-import React from 'react';
-import loader from '../static/loader.gif';
+import React from "react";
+import loader from "../static/loader.gif";
 
 const Loader = ({loading}) => {
     return (
@@ -11,6 +11,6 @@ const Loader = ({loading}) => {
             }
         </div>
     );
-}
+};
 
 export default Loader;

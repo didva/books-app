@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import Loader from './Loader';
+import React, {useState, useEffect} from "react";
+import Loader from "./Loader";
 import {useBooksApiService} from "../contexts/BooksApiServiceContext";
 import {Col, Row} from "react-bootstrap";
 import Thumbnail from "./Thumbnail";
@@ -36,6 +36,6 @@ const VolumeList = ({queryPath, query, shelveId}) => {
             )}
         </>
     );
-}
+};
 
 export default VolumeList;

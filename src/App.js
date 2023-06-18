@@ -1,7 +1,7 @@
-import './App.css';
-import {BrowserRouter, Route, Routes} from 'react-router-dom'
+import "./App.css";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import React, { useState } from "react";
-import Header from './components/layout/Header'
+import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import Catalogue from "./components/pages/Catalogue";
 import Volume from "./components/pages/Volume";
@@ -37,6 +37,6 @@ const App = () => {
             </BooksApiService>
         </UserContext.Provider>
     );
-}
+};
 
 export default App;

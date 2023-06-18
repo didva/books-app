@@ -7,7 +7,7 @@ export const getFiltersObject = (searchParams, filtersList) => {
         };
         return filters;
     }, {});
-}
+};
 
 export const getQuery = (filters) => {
     const query = Object.keys(filters).reduce((query, filter) => {
@@ -24,5 +24,5 @@ export const getQuery = (filters) => {
         return query;
     }, filters["global"].value);
 
-    return query ? query : '""';
-}
+    return query ? query : "\"\"";
+};

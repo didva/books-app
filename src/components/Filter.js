@@ -1,5 +1,5 @@
-import React from 'react';
-import Form from 'react-bootstrap/Form';
+import React from "react";
+import Form from "react-bootstrap/Form";
 import {FloatingLabel} from "react-bootstrap";
 
 const Filter = ({filterId, name, value, onChange}) => {
@@ -8,6 +8,6 @@ const Filter = ({filterId, name, value, onChange}) => {
             <Form.Control type="text" placeholder={name} value={value} onChange={(e) => onChange(filterId, e.target.value)}/>
         </FloatingLabel>
     );
-}
+};
 
 export default Filter;

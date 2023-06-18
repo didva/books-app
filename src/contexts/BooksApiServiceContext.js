@@ -15,6 +15,6 @@ export const useBooksApiService = () => {
         throw new Error("BooksApiServiceContext must be provided!");
     }
     return context;
-}
+};
 
 export default BooksApiServiceContext;

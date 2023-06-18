@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect} from 'react';
+import React, {useCallback, useContext, useEffect} from "react";
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import UserContext from "../contexts/UserContext";
 import GAuthApiService from "../services/GAuthApiSevice";
@@ -26,7 +26,7 @@ const GAuth = () => {
         onError: (error) => {
             console.log(error);
         }
-    })
+    });
     const login = useCallback(() => {
         googleLogin();
     }, [googleLogin]);
@@ -42,7 +42,7 @@ const GAuth = () => {
                 logout();
                 login();
             }, (user.expiresIn - 60) * 1000);
-            return () => { clearTimeout(timeout) };
+            return () => { clearTimeout(timeout); };
         }
     }, [user, login, logout]);
 
@@ -55,6 +55,6 @@ const GAuth = () => {
             )}
         </div>
     );
-}
+};
 
 export default GAuth;

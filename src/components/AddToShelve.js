@@ -1,9 +1,9 @@
-import React, {useState, useContext, useCallback} from 'react';
+import React, {useState, useContext, useCallback} from "react";
 import UserContext from "../contexts/UserContext";
 import {useBooksApiService} from "../contexts/BooksApiServiceContext";
 import AddToShelveButton from "./AddToShelveButton";
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 
 
 const AddToShelve = ({volumeId}) => {
@@ -14,7 +14,7 @@ const AddToShelve = ({volumeId}) => {
 
     const loadShelves = useCallback(() => {
         booksApiService.getShelves().then(shelves => {
-            setShelves(shelves.items.filter(shelve => shelve.access !== 'PRIVATE'));
+            setShelves(shelves.items.filter(shelve => shelve.access !== "PRIVATE"));
         });
     }, [booksApiService, setShelves]);
 
@@ -43,6 +43,6 @@ const AddToShelve = ({volumeId}) => {
             }
         </div>
     );
-}
+};
 
 export default AddToShelve;
