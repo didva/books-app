@@ -1,7 +1,8 @@
-import React, {useCallback, useContext, useEffect} from 'react';
+import React, {useCallback, useContext, useEffect} from "react";
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import UserContext from "../contexts/UserContext";
 import GAuthApiService from "../services/GAuthApiSevice";
+import Button from "react-bootstrap/Button";
 
 const GAuth = () => {
     const gauthApiService = GAuthApiService();
@@ -25,7 +26,7 @@ const GAuth = () => {
         onError: (error) => {
             console.log(error);
         }
-    })
+    });
     const login = useCallback(() => {
         googleLogin();
     }, [googleLogin]);
@@ -41,19 +42,19 @@ const GAuth = () => {
                 logout();
                 login();
             }, (user.expiresIn - 60) * 1000);
-            return () => { clearTimeout(timeout) };
+            return () => { clearTimeout(timeout); };
         }
     }, [user, login, logout]);
 
     return (
         <div>
             {user ? (
-                <input value="Logout..." type="button" onClick={logout}/>
+                <Button variant="danger" onClick={logout} size="sm">Logout...</Button>
             ) : (
-                <input value="Login" type="button" onClick={login}/>
+                <Button variant="success" onClick={login} size="sm">Login</Button>
             )}
         </div>
     );
-}
+};
 
 export default GAuth;

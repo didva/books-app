@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const Footer = () => {
     return (
@@ -6,14 +6,14 @@ const Footer = () => {
             <h1>Copyrights (c)</h1>
         </footer>
     );
-}
+};
 
 const FooterStyle = {
-    background: '#333',
-    color: '#fff',
-    textAlign: 'center',
-    padding: '10px',
-    clear: 'both'
-}
+    background: "#333",
+    color: "#fff",
+    textAlign: "center",
+    padding: "10px",
+    clear: "both"
+};
 
 export default Footer;

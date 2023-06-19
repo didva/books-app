@@ -1,10 +1,8 @@
-import React, {useState, useEffect} from 'react';
-import {Link} from 'react-router-dom'
-import Loader from './Loader';
-import Thumbnail from './Thumbnail';
-import Rating from "./Rating";
+import React, {useState, useEffect} from "react";
+import Loader from "./Loader";
 import {useBooksApiService} from "../contexts/BooksApiServiceContext";
-import RemoveFromShelve from "./RemoveFromShelve";
+import {Col, Row} from "react-bootstrap";
+import Thumbnail from "./Thumbnail";
 
 const VolumeList = ({queryPath, query, shelveId}) => {
     const [volumes, setVolumes] = useState([]);
@@ -19,34 +17,25 @@ const VolumeList = ({queryPath, query, shelveId}) => {
             setLoading(false);
             setVolumes(volumes.items);
         });
-    }, [query, booksApiService, removedTrigger, queryPath]);
+    }, [query, booksApiService, queryPath, removedTrigger]);
 
     return (
         <>
             <Loader loading={loading}/>
-            <div>
-                {!loading && volumes?.length > 0 ? volumes.map(volume =>
-                    <div key={volume.id} className="volumes-row">
-                        <div className="volumes-img-box">
-                            <Thumbnail volumeInfo={volume.volumeInfo}/>
-                            <div>
-                                <Link to={"/volume?id=" + volume.id}>{volume.volumeInfo.title}</Link>
-                            </div>
-                            <Rating volumeInfo={volume.volumeInfo}/>
-                            {shelveId &&
-                                <RemoveFromShelve volumeId={volume.id} shelveId={shelveId} callback={() => setRemovedTrigger((prev) => !prev)}/>
-                            }
-                        </div>
-                        <div className="volumes-description">
-                            {volume.volumeInfo.description}
-                        </div>
-                    </div>
-                ) : (
-                    <h2>No volumes found</h2>
-                )}
-            </div>
+            {!loading && volumes?.length > 0 ? volumes.map(volume =>
+                <Row className="m-md-2" key={volume.id}>
+                    <Col md="2">
+                        <Thumbnail volume={volume} shelveId={shelveId} removeFromShellTrigger={() => setRemovedTrigger((prev) => !prev)}/>
+                    </Col>
+                    <Col md="8">
+                        {volume.volumeInfo.description}
+                    </Col>
+                </Row>
+            ) : !loading && (
+                <h2>No volumes found</h2>
+            )}
         </>
     );
-}
+};
 
 export default VolumeList;

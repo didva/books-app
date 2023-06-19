@@ -1,6 +1,7 @@
-import React, {useCallback, useContext} from 'react';
+import React, {useCallback, useContext} from "react";
 import UserContext from "../contexts/UserContext";
 import {useBooksApiService} from "../contexts/BooksApiServiceContext";
+import Button from "react-bootstrap/Button";
 
 
 const RemoveFromShelve = ({shelveId, volumeId, callback}) => {
@@ -17,10 +18,10 @@ const RemoveFromShelve = ({shelveId, volumeId, callback}) => {
     return (
         <>
             {user &&
-                <input type="button" value="Remove from shelve" onClick={removeFromShelve}/>
+                <Button variant="primary" onClick={removeFromShelve} size="sm">Remove from shelve</Button>
             }
         </>
     );
-}
+};
 
 export default RemoveFromShelve;

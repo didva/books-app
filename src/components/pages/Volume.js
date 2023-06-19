@@ -1,10 +1,8 @@
-import React, {useState, useEffect} from 'react';
-import {useSearchParams} from 'react-router-dom';
-import Loader from '../Loader';
-import Thumbnail from '../Thumbnail';
-import Rating from "../Rating";
+import React, {useState, useEffect} from "react";
+import {useSearchParams} from "react-router-dom";
+import Loader from "../Loader";
+import Thumbnail from "../Thumbnail";
 import {useBooksApiService} from "../../contexts/BooksApiServiceContext";
-import AddToShelve from "../AddToShelve";
 
 const Volume = () => {
     const [searchParams] = useSearchParams();
@@ -16,7 +14,7 @@ const Volume = () => {
         setLoading(true);
         booksApiService.getVolume(searchParams.get("id")).then(volume => {
             setLoading(false);
-            setVolume(volume)
+            setVolume(volume);
         });
     }, [searchParams, booksApiService]);
 
@@ -25,11 +23,9 @@ const Volume = () => {
             <Loader loading={loading}/>
             {!loading && volume?.volumeInfo &&
                 <div>
-                    <h1 className="volume-header">{volume.volumeInfo.title}</h1>
+                    <h1 className="page-header">{volume.volumeInfo.title}</h1>
                     <div className="volume-img-box">
-                        <Thumbnail volumeInfo={volume.volumeInfo}/>
-                        <Rating volumeInfo={volume.volumeInfo}/>
-                        <AddToShelve volumeId={volume.id}/>
+                        <Thumbnail volume={volume}/>
                     </div>
                     <div className="volume-description"
                          dangerouslySetInnerHTML={{__html: volume.volumeInfo.description}}/>
@@ -37,6 +33,6 @@ const Volume = () => {
             }
         </div>
     );
-}
+};
 
 export default Volume;

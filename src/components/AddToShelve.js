@@ -1,7 +1,9 @@
-import React, {useState, useContext, useCallback} from 'react';
+import React, {useState, useContext, useCallback} from "react";
 import UserContext from "../contexts/UserContext";
 import {useBooksApiService} from "../contexts/BooksApiServiceContext";
 import AddToShelveButton from "./AddToShelveButton";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 
 
 const AddToShelve = ({volumeId}) => {
@@ -12,7 +14,7 @@ const AddToShelve = ({volumeId}) => {
 
     const loadShelves = useCallback(() => {
         booksApiService.getShelves().then(shelves => {
-            setShelves(shelves.items.filter(shelve => shelve.access !== 'PRIVATE'));
+            setShelves(shelves.items.filter(shelve => shelve.access !== "PRIVATE"));
         });
     }, [booksApiService, setShelves]);
 
@@ -20,31 +22,27 @@ const AddToShelve = ({volumeId}) => {
         setShelves([]);
     }, [setShelves]);
 
-    const preventPropagation = useCallback((e) => {
-        e.stopPropagation();
-    }, []);
-
     return (
         <div>
             {user &&
                 <>
                     <div>
-                        <input type="button" value="Add to shelve" onClick={() => loadShelves()}/>
+                        <Button variant="primary" onClick={() => loadShelves()}>Add to shelve</Button>
                     </div>
-                    {shelves?.length > 0 &&
-                        <div className="add-to-shelve-popup-background" onClick={removePopup}>
-                            <div className="add-to-shelve-popup" onClick={preventPropagation}>
-                                <h2>Please select shelve:</h2>
-                                {shelves.map(shelve =>
-                                    <AddToShelveButton key={shelve.id} volumeId={volumeId} shelve={shelve}/>
-                                )}
-                            </div>
-                        </div>
-                    }
+                    <Modal show={shelves?.length > 0} onHide={removePopup}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Please select shelve:</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            {shelves.map(shelve =>
+                                <AddToShelveButton key={shelve.id} volumeId={volumeId} shelve={shelve}/>
+                            )}
+                        </Modal.Body>
+                    </Modal>
                 </>
             }
         </div>
     );
-}
+};
 
 export default AddToShelve;

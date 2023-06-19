@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const Rating = ({volumeInfo}) => {
     return (
@@ -10,6 +10,6 @@ const Rating = ({volumeInfo}) => {
             }
         </>
     );
-}
+};
 
 export default Rating;

@@ -1,9 +1,10 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from "react";
 import ProfileThumbnail from "../ProfileThumbnail";
 import UserContext from "../../contexts/UserContext";
 import Loader from "../Loader";
 import {Link} from "react-router-dom";
 import {useBooksApiService} from "../../contexts/BooksApiServiceContext";
+import {Table} from "react-bootstrap";
 
 const Profile = () => {
     const {user} = useContext(UserContext);
@@ -27,22 +28,18 @@ const Profile = () => {
         <div className="profile-container">
             {user ? (
                 <>
-                    <div className="user-profile-info">
-                        <ProfileThumbnail/>
-                        <div>
-                            <div>{user.name}</div>
-                            <div>{user.email}</div>
-                        </div>
-                    </div>
+                    <ProfileThumbnail showInfo={true} size="10rem"/>
                     <div>
                         <Loader loading={loading}/>
                         <div>
                             {!loading && shelves &&
-                                <table className="shelves-table">
+                                <Table striped bordered hover>
                                     <thead>
-                                        <th>Shelve Name</th>
-                                        <th>Books Count</th>
-                                        <th>Created Date</th>
+                                        <tr>
+                                            <th>Shelve Name</th>
+                                            <th>Books Count</th>
+                                            <th>Created Date</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
                                         {shelves.map(shelve =>
@@ -53,7 +50,7 @@ const Profile = () => {
                                             </tr>
                                         )}
                                     </tbody>
-                                </table>
+                                </Table>
                             }
                         </div>
                     </div>
@@ -63,6 +60,6 @@ const Profile = () => {
             )}
         </div>
     );
-}
+};
 
 export default Profile;

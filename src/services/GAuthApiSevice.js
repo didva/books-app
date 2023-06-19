@@ -5,11 +5,11 @@ const GAuthApiService = () => {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    Accept: 'application/json'
+                    Accept: "application/json"
                 }
             }).then((response) => response.json());
         }
     };
-}
+};
 
 export default GAuthApiService;

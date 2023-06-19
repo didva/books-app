@@ -1,20 +1,20 @@
-import React, {useState, useEffect, useCallback} from 'react';
-import {Link, useNavigate} from 'react-router-dom'
-import Thumbnail from './Thumbnail';
+import React, {useCallback, useEffect, useState} from "react";
 import {useBooksApiService} from "../contexts/BooksApiServiceContext";
+import Form from "react-bootstrap/Form";
+import {Row} from "react-bootstrap";
+import Thumbnail from "./Thumbnail";
 
 const SearchBox = () => {
-    const [search, setSearch] = useState('');
+    const [search, setSearch] = useState("");
     const [results, setResults] = useState([]);
-    const navigate = useNavigate();
     const booksApiService = useBooksApiService();
 
     useEffect(() => {
         if (search.length >= 3) {
             const timeout = setTimeout(() => {
-                booksApiService.getVolumes('/volumes', search, 3).then(results => setResults(results.items));
+                booksApiService.getVolumes("/volumes", search, 3).then(results => setResults(results.items));
             }, 1000);
-            return () => { clearTimeout(timeout) };
+            return () => { clearTimeout(timeout); };
         } else {
             setResults([]);
         }
@@ -33,29 +33,22 @@ const SearchBox = () => {
         setSearch("");
     }, []);
 
-    const onMouseDown = useCallback((e) => {
-        navigate(e.target.getAttribute("href"));
-    }, [navigate]);
-
     return (
         <div className="search-container">
-            <form onSubmit={onSubmit}>
-                <input className="search" type="text" onChange={onChange} onBlur={onFocusOut} value={search} placeholder="Search..."/>
-            </form>
+            <Form onSubmit={onSubmit}>
+                <Form.Control type="text" placeholder="Search..." value={search} onChange={onChange} onBlur={onFocusOut}/>
+            </Form>
             {results?.length > 0 &&
                 <div className="search-results">
-                    {results.map(result =>
-                        <div key={result.id} className="search-result">
-                            <Link onMouseDown={onMouseDown} className="search-result-img" to={"/volume?id=" + result.id}>
-                                <Thumbnail volumeInfo={result.volumeInfo}/>
-                            </Link>
-                            <div className="search-result-title"><Link onMouseDown={onMouseDown} to={"/volume?id=" + result.id}>{result.volumeInfo.title}</Link></div>
-                        </div>
+                    {results.map(volume =>
+                        <Row className="m-md-2" key={volume.id}>
+                            <Thumbnail volume={volume}/>
+                        </Row>
                     )}
                 </div>
             }
         </div>
     );
-}
+};
 
 export default SearchBox;
